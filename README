@@ -4,4 +4,6 @@ To build the project on OS X or Linux, simply run
 
     make
     
-Supported to Windows has been added but not tested
+Windows binary was built successfully under Linux
+
+Binary for Windows and Linux can be found at bin/
