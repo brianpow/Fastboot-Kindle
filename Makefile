@@ -1,5 +1,4 @@
 CC = gcc
-CFLAGS =
 DEPS = fastboot.h usb.h
 OBJ = protocol.o engine.o fastboot.o 
 SRC = protocol.c engine.c fastboot.c 
@@ -8,6 +7,8 @@ TARGETS := fastboot
 ifeq ($(OS),Windows_NT)
 	SRC += usb_windows.c util_windows.c
 	OBJ += usb_windows.o util_windows.o
+	CFLAGS += -I./include
+	LIBS += -lmingw32 
 else
 	HOST_OS := $(shell uname -s)
 	ifeq ($(HOST_OS),Darwin)
@@ -26,8 +27,7 @@ endif
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 make: $(OBJ)
-	echo $OS
-	$(CC) -Wall -lpthread $(CFLAGS) $(SRC) -o $(TARGETS)
+	$(CC) -Wall -lpthread $(CFLAGS) $(SRC) -o $(TARGETS) $(LIBS)
 
 clean:
 	rm -f *.o
